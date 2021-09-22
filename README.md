@@ -52,3 +52,5 @@ Without this .json file the app will not be able to import newly found games int
 `npm run watch-backend`
 
 - Watch for changes upon frontend and backend files. Run these in two separate terminals
+
+Then navigate to `http://localhost:5555/overlay/` to view the overlay.
