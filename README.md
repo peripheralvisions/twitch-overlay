@@ -14,6 +14,8 @@ Current features
 - Card design that contains all the neccesary information
 - Basic search functionality on own database
 - Votes are being saved to database 
+- Pagination
+- Infinite scroll
 
 Goals
 ---
