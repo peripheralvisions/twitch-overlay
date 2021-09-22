@@ -1,6 +1,4 @@
 node_modules
 dist
-*.json
 server/steamDataNEW.json
 server/steamData.json
-*.json
