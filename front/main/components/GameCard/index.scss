@@ -1,0 +1,166 @@
+$border-radius: 5px;
+
+.GameCard {
+    width: 100%;
+    margin-bottom: 20px;
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out, box-shadow 0.4s ease-in-out;
+    box-shadow: 0 0 10px dimgray;
+    border-radius: 5px;
+    position: relative;
+    z-index: 999;
+
+    img {
+        display: block;
+        width: 100%;
+        z-index: 998;
+        box-shadow: 0 0 10px rgba(0, 158, 194, 0.659);
+    }
+
+    .GameCard-dash {
+        width: 100%;
+        height: 5px;
+        background: rgb(138, 210, 232);
+        box-sizing: border-box;
+        position: relative;
+        border-radius: 0 0 $border-radius $border-radius;
+        overflow: hidden;
+    }
+
+    .GameCard-dash-fill {
+        box-shadow: 0 0 10px white;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 0;
+        height: 100%;
+        background: rgb(0, 166, 255);
+        transition: width 2s ease-in-out;
+        
+    }
+
+    .GameCard-header-gradient {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+    }
+
+
+    &:hover {
+        transform: translate(3%, 0) scale(1.03);
+        box-shadow: 0 0 10px rgb(1, 255, 251);
+
+        @keyframes swoop {
+            from {
+                opacity: 0;
+                margin-left: -10px;
+            } to {
+                opacity: 1;
+                margin-left: 0;
+            }
+        }
+
+        .GameCard-screenshots {
+            z-index: 2;
+            animation: swoop 0.4s ease-in-out forwards;
+            img {
+                display: inline-block;
+            }
+            width: 100%;
+        }
+    }
+
+    .GameCard-header {
+        overflow: hidden;
+        border-radius: $border-radius $border-radius 0 0;   
+        img {
+            transition: transform 0.4s ease-in-out;
+        }
+    }
+
+    .GameCard-details {
+        align-items: center;
+        background: #02AED9;
+        padding: 15px;
+        text-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
+        transition: all 0.4s ease-in-out;
+        z-index: 999;
+
+        div:nth-child(2) {
+            font-size: 12px;
+            display: flex;
+            flex-direction: row;
+            align-items: flex-start;
+            vertical-align: middle;
+
+            span {
+                display: inline-block;
+            }
+
+            .GameCard-tag {
+                background: #00c6ff;
+                padding: 5px 10px;
+                border-radius: 50px;
+                box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+            }
+            .GameCard-tag:not(:last-child) {
+                margin-right: 10px;
+            }
+
+            .GameCard-price {
+                margin-left: auto;
+                font-weight: 600;
+            }
+        }
+    }
+
+    .GameCard-title {
+        font-weight: 600;
+        margin-bottom: 15px;
+    }
+
+    .GameCard-tags {
+        font-size: 8px;
+    }
+
+    .GameCard-screenshots {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 0;
+        height: 100%;
+        transform: translate(100%, 0);
+        img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: auto;
+            z-index: 9999;
+            display: none;
+            margin-left: 10px;
+            opacity: 0;
+        }
+    }
+}
+
+.GameCard-beingVoted {
+    @keyframes holdToVote {
+        100% {
+            width: 100%;
+        }
+    }
+
+    .GameCard-header {
+        img {
+            transition: transform 4s ease-in-out !important;
+            transform: scale(1.2);
+        }
+    }
+
+    .GameCard-dash-fill {
+        animation: holdToVote 4s ease-in-out forwards;
+    }
+}

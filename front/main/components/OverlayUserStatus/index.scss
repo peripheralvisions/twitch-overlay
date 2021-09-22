@@ -1,0 +1,65 @@
+#OverlayUserStatus-catFace {
+    display: inline-block;
+    height: auto;
+
+    >img {
+        height: 45px;
+    }
+
+    @keyframes sway {
+        0% {
+            transform: rotate(0deg);
+        }
+
+        25% {
+            transform: rotate(-10deg);
+        }
+
+        75% {
+            transform: rotate(10deg);
+        }
+
+        100% {
+            transform: rotate(0deg);
+        }
+    }
+
+    animation-name: sway;
+    animation-duration: 4s;
+    animation-iteration-count: infinite;
+}
+
+#OverlayUserStatus {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    height: 60px;
+    justify-content: space-around;
+    margin: 0 auto;
+    margin-bottom: 40px;
+    width: 85%;
+
+    h3 {
+        font-size: 34px;
+    }
+
+    span {
+        display: inline-block;
+    }
+
+    >* {
+        display: inline-block;
+    }
+}
+
+#OverlayUserStatus-separator {
+    width: 3px;
+    height: 100%;
+    background: white;
+}
+
+#OverlayUserStatus-credentials {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
