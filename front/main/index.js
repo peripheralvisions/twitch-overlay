@@ -224,13 +224,7 @@ function App() {
         <OverlaySearch      changeCategory={setSelectedCategory}  selectedCategory={selectedCategory} setSearchValue={setSearchValue}/>
         <OverlayHelp />
 
-        {games.length > 1 ? (
-          <GameList searchValue={searchValue} sendVote={sendVote} data={games}/>
-        ) : (
-          <h1 style={{textAlign: "center"}}>
-            API unavailable
-          </h1>
-        )}
+        <GameList searchValue={searchValue} sendVote={sendVote} data={games}/>
 
       </div>
 
@@ -238,8 +232,7 @@ function App() {
         overlayVisibility={overlayVisibility}
         toggleOverlayVisibility={toggleOverlayVisibility}
         buttonMessage={buttonMessage}
-        setbuttonMessage={buttonMessage}
-      />
+        setbuttonMessage={buttonMessage}/>
 
     </div>
   );
