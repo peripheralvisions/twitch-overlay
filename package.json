@@ -5,7 +5,6 @@
   "scripts": {
     "watch-frontend": "webpack --watch",
     "watch-backend": "nodemon server/server.js",
-    "node-backend": "node server/index.js",
     "fetch-steam-games": "node server/steamGamesCollector.js"
   },
   "dependencies": {

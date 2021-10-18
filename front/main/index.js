@@ -41,13 +41,15 @@ function App() {
     canRequest: true,
   });
 
-  //Games State
-  const [games, setGames] = useState([]);
-  const [overlayVisibility, setOverlayVisibility] = useState(true);
   const [selectedCategory, setSelectedCategory] = useState({
     category: "steam",
     subCategory: "popularNewReleases",
   });
+
+  //Games State
+  const [games, setGames] = useState([]);
+  const [overlayVisibility, setOverlayVisibility] = useState(true);
+
   const [searchValue, setSearchValue] = useState("");
   const [currentVote, setCurrentVote] = useState("");
   const [buttonMessage, setbuttonMessage] = useState("CAST YOUR VOTE");
@@ -97,8 +99,11 @@ function App() {
 
       setSavedData(prevState => {
         const temp = prevState[selectedCategory.category];
-        console.log(temp)
+        console.log(temp);
+
         temp[selectedCategory.subCategory].maxPages = data.maxPages;
+        temp[selectedCategory.subCategory].lastPage++;
+
         return {
           ...prevState,
           ...temp
@@ -107,9 +112,7 @@ function App() {
 
       return data.data;
 
-    })
-
-    storedObject.lastPage++;
+    });
 
     console.log(storedObject);
 
@@ -141,7 +144,7 @@ function App() {
   //Overlay visibility
   const toggleOverlayVisibility = () => {
     console.log("changing visibility");
-    setOverlayVisibility((prevState) => !prevState);
+    setOverlayVisibility((prevState) => !prevState);  
   };
 
   //Categories
@@ -178,15 +181,12 @@ function App() {
             //APPEND NEWLY REQUESTED GAMES TO STORAGE TO PREVENT REQUEST SPAMMING
             setSavedData((prevState) => {
               const temp = prevState;
-              temp[selectedCategory.category][
-                selectedCategory.subCategory
-              ].data = data;
+              temp[selectedCategory.category][selectedCategory.subCategory].data = data;
               return {
                 ...prevState,
                 ...temp,
               };
             });
-
             return data;
           })
           .then(() => {
@@ -216,42 +216,31 @@ function App() {
 
   return (
     <div id="Overlay" onScroll={handleScroll}>
-      <div
-        id="OverlaySide"
-        style={sideStyle}
-        className={overlayVisibility ? "OverlaySide-visible" : ""}
-      >
-        {" "}
-        <OverlayHeader changeOverlayVisibility={toggleOverlayVisibility} />{" "}
-        <OverlayUserStatus currentVote={currentVote} />{" "}
-        <OverlaySearch
-          changeCategory={setSelectedCategory}
-          selectedCategory={selectedCategory}
-          setSearchValue={setSearchValue}
-        />{" "}
-        <OverlayHelp />{" "}
+      
+      <div id="OverlaySide" style={sideStyle} className={overlayVisibility ? "OverlaySide-visible" : ""}>
+        
+        <OverlayHeader      changeOverlayVisibility={toggleOverlayVisibility} />{" "}
+        <OverlayUserStatus  currentVote={currentVote} />{" "}
+        <OverlaySearch      changeCategory={setSelectedCategory}  selectedCategory={selectedCategory} setSearchValue={setSearchValue}/>
+        <OverlayHelp />
+
         {games.length > 1 ? (
-          <GameList
-            searchValue={searchValue}
-            sendVote={sendVote}
-            data={games}
-          />
+          <GameList searchValue={searchValue} sendVote={sendVote} data={games}/>
         ) : (
-          <h1
-            style={{
-              textAlign: "center",
-            }}
-          >
+          <h1 style={{textAlign: "center"}}>
             API unavailable
           </h1>
         )}
-      </div>{" "}
+
+      </div>
+
       <OverlayButton
         overlayVisibility={overlayVisibility}
         toggleOverlayVisibility={toggleOverlayVisibility}
         buttonMessage={buttonMessage}
         setbuttonMessage={buttonMessage}
-      />{" "}
+      />
+
     </div>
   );
 }
