@@ -2,3 +2,4 @@ node_modules
 dist
 server/steamDataNEW.json
 server/steamData.json
+steamDataNEW.json
