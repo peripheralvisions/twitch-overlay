@@ -7,7 +7,7 @@ function GameList(props) {
 
     const searchValue = props.searchValue;
 
-    const ErrorMessage = (<h1 style={{textAlign: 'center'}}>
+    const errorMessage = (<h1 style={{textAlign: 'center'}}>
         API UNAVAILABLE
     </h1>);
 
@@ -15,7 +15,7 @@ function GameList(props) {
         <div>
             {
                 games.length < 1 ? 
-                    ErrorMessage
+                    errorMessage
                 : 
                 searchValue === "" ?
                 games.map(each => {

@@ -203,10 +203,6 @@ function App() {
       setSearchValue("");
     }, [selectedCategory]);
 
-  useEffect(function () {
-      console.log("Search value changed to ", searchValue);
-    }, [searchValue]);
-
 
   const sideStyle = {
     maxWidth: 500,
@@ -221,18 +217,14 @@ function App() {
         
         <OverlayHeader      changeOverlayVisibility={toggleOverlayVisibility} />{" "}
         <OverlayUserStatus  currentVote={currentVote} />{" "}
-        <OverlaySearch      changeCategory={setSelectedCategory}  selectedCategory={selectedCategory} setSearchValue={setSearchValue}/>
+        <OverlaySearch      changeCategory={setSelectedCategory} selectedCategory={selectedCategory} setSearchValue={setSearchValue}/>
         <OverlayHelp />
 
         <GameList searchValue={searchValue} sendVote={sendVote} data={games}/>
 
       </div>
 
-      <OverlayButton
-        overlayVisibility={overlayVisibility}
-        toggleOverlayVisibility={toggleOverlayVisibility}
-        buttonMessage={buttonMessage}
-        setbuttonMessage={buttonMessage}/>
+      <OverlayButton overlayVisibility={overlayVisibility} toggleOverlayVisibility={toggleOverlayVisibility} buttonMessage={buttonMessage} setbuttonMessage={buttonMessage}/>
 
     </div>
   );
