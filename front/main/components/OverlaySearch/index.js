@@ -8,8 +8,6 @@ import controllerSVG from './../../svg/svg-controller.svg';
 
 function OverlaySearch(props) {
 
-    const shouldFloat = props.shouldFloat;
-
     const selectedCategory = props.selectedCategory;
 
     const menuOptions = [
@@ -72,12 +70,7 @@ function OverlaySearch(props) {
     }
 
     return (
-        <div style={{
-            position: 'sticky',
-            top: 0,
-            paddingTop: 20,
-            zIndex: 999,
-        }} id="OverlaySearch">
+        <div id="OverlaySearch">
             {console.log('Setting up Search')}
             <ul className="OverlaySearch-categories">
                 {menuOptions.map(each => {

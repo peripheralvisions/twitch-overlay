@@ -50,8 +50,6 @@ function App() {
   const [games, setGames] = useState([]);
   const [overlayVisibility, setOverlayVisibility] = useState(true);
 
-  const [shouldFloat, setShouldFloat] = useState(false);
-
   const [searchValue, setSearchValue] = useState("");
   const [currentVote, setCurrentVote] = useState("");
   const [buttonMessage, setbuttonMessage] = useState("CAST YOUR VOTE");
@@ -59,8 +57,6 @@ function App() {
   const handleScroll = (e) => {
 
     const bottom = e.target.scrollHeight - e.target.scrollTop === e.target.clientHeight;
-    const distance = e.target.scrollTop;
-    console.log(distance);
 
     if (bottom) {
       
@@ -71,12 +67,6 @@ function App() {
       if (storedObject.lastPage > storedObject.maxPages   || !requestPermissions.canRequest) return;
 
       fetchAndSaveGames();
-    }
-
-    if (distance > 0) {
-      setShouldFloat(true);
-    } else {
-      setShouldFloat(false);
     }
 
   };
@@ -227,7 +217,7 @@ function App() {
         
         <OverlayHeader      changeOverlayVisibility={toggleOverlayVisibility} />{" "}
         <OverlayUserStatus  currentVote={currentVote} />{" "}
-        <OverlaySearch      shouldFloat={shouldFloat} changeCategory={setSelectedCategory} selectedCategory={selectedCategory} setSearchValue={setSearchValue}/>
+        <OverlaySearch      changeCategory={setSelectedCategory} selectedCategory={selectedCategory} setSearchValue={setSearchValue}/>
         <OverlayHelp />
 
         <GameList searchValue={searchValue} sendVote={sendVote} data={games}/>
