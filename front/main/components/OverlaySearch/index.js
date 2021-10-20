@@ -53,7 +53,6 @@ function OverlaySearch(props) {
         const isEnter = evt.keyCode === 13;
         const isEmpty = evt.target.value === '';
 
-
         if (isEmpty) {
             props.setSearchValue("");
         } else if (isEnter) {
