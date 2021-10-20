@@ -1,120 +1,31 @@
 //Node
-
 const fs   = require('fs');
 const path = require('path');
 
 //Server
-
 const mongoose = require('mongoose');
 const express  = require('express');
 const app      = express();
 
-
+//Settings
 const PAGINATION_LIMIT = 25;
 let   PAGINATION_MAX_PAGES = 0;
 
-
 //Middleware
-
 app.use(express.json());
 
 //Connect
-
 mongoose.connect('mongodb://localhost/subsunday-overlay-database', {
     useUnifiedTopology: true,
     useNewUrlParser: true
 });
 
-//Schema
-
-const gameInstanceSchema = mongoose.Schema({
-    appId: {
-        type: String
-    },
-    images: {
-        imageCDN: {
-            type: String
-        },
-        routes: {
-            coverSmall: {
-                type: String
-            },
-            header: {
-                type: String
-            }
-        }
-    },
-    price: {
-        originalPrice: {
-            type: String
-        },
-        currentPrice: {
-            type: String
-        }
-    },
-    title: {
-        type: String
-    },
-    releaseDate: {
-        type: String
-    },
-    reviews: {
-        summary: {
-            type: String
-        },
-        total: {
-            type: String
-        }
-    },
-    screenshots: {
-        type: [String]
-    },
-    tags: {
-        type: [String]
-    },
-
-    provider: {
-        name: String
-    },
-
-    votes: [
-        {
-            type: mongoose.Types.ObjectId,
-            ref: 'gameVote'
-        }
-    ]
-
-    // votes: {     type: mongoose.Types.ObjectId,     ref: 'listOfVotes', }
-
-});
-
-const userVoteSchema = mongoose.Schema({
-    username: String,
-    dateVoted: Date,
-    game: {
-        type: mongoose.Schema.Types.ObjectId,
-        required: true,
-        ref: "gameInstance"
-    }
-});
-
-const listOfVotesSchema = mongoose.Schema({
-    votes: [
-        {
-            type: mongoose.Types.ObjectId,
-            ref: 'gameVote'
-        }
-    ]
-})
-
 //Models
-
-const gameInstance     = mongoose.model('gameInstance', gameInstanceSchema);
-const userVoteModel    = mongoose.model('gameVote',     userVoteSchema);
-const listOfVotesModel = mongoose.model('listOfVotes',  listOfVotesSchema);
+const gameInstance     = require('./models/gameInstance.js');
+const userVoteModel    = require('./models/gameVote.js');
+const listOfVotesModel = require('./models/listOfVotes.js');
 
 //Connection
-
 const db = mongoose.connection;
 
 db.once('open', async() => {
@@ -135,7 +46,6 @@ db.once('open', async() => {
 })
 
 //Helpers
-
 async function goOverArray(array) {
 
     const promises = [];
@@ -198,11 +108,9 @@ async function importJSONtoDatabase(fileNames) {
 }
 
 //Overlay
-
 app.use("/overlay", express.static(path.join(__dirname, '../dist/overlay')));
 
 //Routes Lists
-
 app.get('/all', async(req, res) => {
     // .select('-votes')
     const data = await gameInstance
@@ -260,7 +168,6 @@ app.get('/games/:provider/:route/:page', async(req, res, next) => {
 })
 
 //Search
-
 app.get('/search/:title', async(req, res) => {
 
     const {title} = req.params;
@@ -274,7 +181,6 @@ app.get('/search/:title', async(req, res) => {
 })
 
 //Post
-
 app.post('/vote', async(req, res) => {
     const {username, title} = req.body;
 
@@ -337,8 +243,7 @@ app.post('/vote', async(req, res) => {
         .send(message);
 });
 
-//Action
-
+//Actions
 app.get('/clear-votes', async(req, res) => {
     const deleted = await userVoteModel.deleteMany({});
 
@@ -352,7 +257,6 @@ app.get('/clear-all', async(req, res) => {
 })
 
 //Listener
-
 const listener = app.listen(5555, () => {
     console.log('APP listening on port:', listener.address().port);
     console.log("Available Routes:");
