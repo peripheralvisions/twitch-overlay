@@ -229,7 +229,7 @@ async function scrapeSteamRoute(pathToSaveFile = 'server/steamData.json') {
  
     console.log(pathToSaveFile);
     await fs.writeFileSync(pathToSaveFile, JSON.stringify(result));
-    // await browser.close();
+    await browser.close();
     console.log('Finished writing steamData');
     return result;
 }
