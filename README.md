@@ -1,5 +1,3 @@
-# sub-sunday-overlay
-
 Requires Node.js and mongodb installed on Your PC.
 
 What is this app supposed to do?
